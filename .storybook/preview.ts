@@ -1,13 +1,10 @@
-import type { Preview } from '@storybook/react-vite'
+import "../src/components/Button/Button.scss";
 
-const preview: Preview = {
+const preview = {
   parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
+    layout: "centered",
+    actions: { argTypesRegex: "^on[A-Z].*" },
+    controls: { expanded: true },
   },
 };
 

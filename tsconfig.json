@@ -1,15 +1,31 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "jsx": "react-jsx",
-    "moduleResolution": "Node",
+    /* Output options */
     "outDir": "dist",
     "declaration": true,
     "declarationDir": "dist",
+    "emitDeclarationOnly": false,
+
+    /* Module resolution */
+    "module": "ESNext",
+    "target": "ESNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    /* React */
+    "jsx": "react-jsx",
+
+    /* Strictness */
     "strict": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+
+    /* Paths & Aliases */
+    "baseUrl": "src",
+    "paths": {
+      "@components/*": ["components/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["node_modules", "dist"]
 }
