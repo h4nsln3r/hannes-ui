@@ -2,30 +2,29 @@ import React from "react";
 import classNames from "classnames";
 import "./button.scss";
 
-export type ButtonProps = {
+export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   label: string;
-  onClick?: () => void;
   variant?: "solid" | "transparent";
-  disabled?: boolean;
   loading?: boolean;
-  className?: string;
 };
 
 export const Button: React.FC<ButtonProps> = ({
   label,
-  onClick,
   variant = "solid",
   disabled,
   loading,
   className,
+  type = "button",
+  ...props
 }) => {
   return (
     <button
-      onClick={onClick}
+      type={type}
       disabled={disabled || loading}
       className={classNames("btn", `btn--${variant}`, className, {
         "btn--loading": loading,
       })}
+      {...props}
     >
       {loading ? "Loading..." : label}
     </button>

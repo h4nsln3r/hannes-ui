@@ -1,4 +1,4 @@
-import "../src/components/Button/Button.scss";
+import "../src/components/Button/button.scss";
 
 const preview = {
   parameters: {
