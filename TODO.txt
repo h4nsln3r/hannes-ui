@@ -1,1 +1,1 @@
-Heja
+Skapa en cool hero komponent som byter ut innehållet när man scrollar på olika sätt.

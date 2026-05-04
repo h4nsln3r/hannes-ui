@@ -8,6 +8,8 @@ const config: StorybookConfig = {
     options: {},
   },
   viteFinal: async (viteConfig) => {
+    const basePath = process.env.STORYBOOK_BASE_PATH;
+
     viteConfig.resolve = {
       ...viteConfig.resolve,
       alias: {
@@ -15,6 +17,11 @@ const config: StorybookConfig = {
         "@components": new URL("../src/components/", import.meta.url).pathname,
       },
     };
+
+    if (basePath) {
+      viteConfig.base = basePath.endsWith("/") ? basePath : `${basePath}/`;
+    }
+
     return viteConfig;
   },
 };

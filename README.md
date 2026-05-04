@@ -41,6 +41,18 @@ npm run build
 
 This creates:
 - ESM build (`dist/index.js`)
-- CJS build (`dist/index.cjs`)
 - TypeScript declarations (`dist/index.d.ts`)
 - Compiled styles (`dist/styles.css`)
+
+## Publish Storybook (free) with GitHub Pages
+
+This repository includes a workflow that deploys Storybook to GitHub Pages on every push to `main`.
+
+1. Push this project to GitHub
+2. In GitHub, open `Settings -> Pages`
+3. Set `Source` to `GitHub Actions`
+4. Push to `main` (or run workflow manually in `Actions`)
+
+After deploy, Storybook is available at:
+
+`https://<your-github-username>.github.io/<repo-name>/`
