@@ -20,7 +20,7 @@
   place-content: center;
   text-align: center;
   padding: 2rem;
-  transition: opacity 260ms ease-out;
+  transition: opacity 420ms ease-out;
 }
 
 .hero-scroll__title {
@@ -52,7 +52,7 @@
   background-position: center;
   box-shadow: 0 22px 70px rgba(0, 0, 0, 0.35);
   will-change: transform, opacity;
-  transition: transform 220ms cubic-bezier(0.2, 0.68, 0.28, 1), opacity 220ms ease-out;
+  transition: transform 480ms cubic-bezier(0.2, 0.68, 0.28, 1), opacity 440ms ease-out;
   pointer-events: none;
 }
 
