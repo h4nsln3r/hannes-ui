@@ -1,3 +1,4 @@
+import "../src/styles/tailwind.css";
 import "../src/components/Button/button.scss";
 
 const preview = {
