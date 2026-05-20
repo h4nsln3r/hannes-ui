@@ -1,0 +1,337 @@
+/**
+ * SectionMenu — fixed top navigation with desktop links + mobile slide-in sheet.
+ * Ported and generalised from the totes project.
+ */
+.section-menu {
+  --section-menu-height: 50px;
+  --section-menu-bg: transparent;
+  --section-menu-fg: #111;
+  --section-menu-active-bar: #111;
+  --section-menu-light-fg: #fff;
+  --section-menu-light-active-bar: #fff;
+  --section-menu-panel-bg: rgba(255, 255, 255, 0.94);
+  --section-menu-panel-blur: 16px;
+  --section-menu-link-size: 18px;
+  --section-menu-link-size-desktop: 28px;
+  --section-menu-link-gap-desktop: 6rem;
+  --section-menu-active-bar-height: 6px;
+
+  position: fixed;
+  inset: 0 0 auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--section-menu-height);
+  margin: 0;
+  padding: 0 10px;
+  background-color: var(--section-menu-bg);
+  color: var(--section-menu-fg);
+  z-index: 1000;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease,
+    transform 0.35s ease;
+  will-change: transform;
+  font-family: inherit;
+
+  @media (min-width: 768px) {
+    padding: 0 20px;
+  }
+
+  &--light {
+    color: var(--section-menu-light-fg);
+
+    .section-menu__link,
+    .section-menu__toggle {
+      color: var(--section-menu-light-fg);
+    }
+
+    @media (min-width: 768px) {
+      .section-menu__link--active {
+        border-bottom-color: var(--section-menu-light-fg);
+      }
+
+      .section-menu__link::after {
+        background: var(--section-menu-light-active-bar);
+      }
+    }
+  }
+
+  &--hide {
+    @media (min-width: 768px) {
+      transform: translateY(calc(-1 * (var(--section-menu-height) + 12px)));
+    }
+  }
+
+  &__logo {
+    margin-right: auto;
+    margin-left: 0;
+    margin-top: 0;
+    padding-right: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    flex-shrink: 0;
+
+    @media (max-width: 767px) {
+      position: relative;
+      z-index: 1002;
+    }
+
+    @media (min-width: 768px) {
+      margin-left: 0;
+      margin-top: 3px;
+    }
+
+    /* Sensible defaults if consumer passes a raw <img />. */
+    > img,
+    > svg {
+      display: block;
+      height: 40px;
+      width: auto;
+
+      @media (min-width: 768px) {
+        height: 50px;
+      }
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    position: relative;
+    z-index: 1;
+
+    @media (max-width: 767px) {
+      position: relative;
+      z-index: 1002;
+    }
+  }
+
+  &__toggle {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 6px;
+    margin: 0;
+    cursor: pointer;
+    color: inherit;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    @media (min-width: 768px) {
+      display: none;
+    }
+
+    > svg {
+      display: block;
+    }
+  }
+
+  &__panel {
+    overflow: hidden;
+    width: 300px;
+    position: relative;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+
+    @media (min-width: 768px) {
+      width: auto;
+      flex: 1 1 auto;
+      max-width: min(45vw, 720px);
+      min-width: 0;
+      margin-left: 0;
+    }
+
+    &--mobile {
+      @media (max-width: 767px) {
+        position: fixed;
+        inset: 0;
+        width: 100%;
+        max-width: none;
+        min-width: 0;
+        height: 100dvh;
+        min-height: 100dvh;
+        margin: 0;
+        padding: 0;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch;
+        z-index: 1001;
+        align-items: stretch;
+        transform: translateX(100%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.22s ease-out;
+      }
+    }
+
+    &--open {
+      @media (max-width: 767px) {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1.4rem;
+
+    @media (max-width: 767px) {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1.35rem;
+      width: 100%;
+      min-height: 100dvh;
+      padding: calc(var(--section-menu-height) + env(safe-area-inset-top, 0px) + 1.75rem)
+        1.75rem 2.5rem calc(1.75rem + env(safe-area-inset-right, 0px));
+      box-sizing: border-box;
+      background: var(--section-menu-panel-bg);
+      backdrop-filter: blur(var(--section-menu-panel-blur));
+      -webkit-backdrop-filter: blur(var(--section-menu-panel-blur));
+      text-align: right;
+    }
+
+    @media (min-width: 768px) {
+      width: 100%;
+      gap: var(--section-menu-link-gap-desktop);
+      justify-content: flex-start;
+    }
+  }
+
+  &__link-item {
+    @media (max-width: 767px) {
+      width: 100%;
+    }
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    text-decoration: none;
+    color: inherit;
+    font-weight: 600;
+    font-size: var(--section-menu-link-size);
+    padding: 0.25rem 0;
+    line-height: 1.2;
+    transition: font-size 0.25s ease, opacity 0.2s ease, color 0.3s ease;
+    cursor: pointer;
+
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: var(--section-menu-active-bar-height);
+      background: var(--section-menu-active-bar);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    &--active::after {
+      opacity: 1;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    @media (max-width: 767px) {
+      justify-content: flex-end;
+      width: 100%;
+      font-size: clamp(2.05rem, 6.5vw, 2.65rem);
+      letter-spacing: -0.02em;
+      padding: 0.45rem 0;
+
+      &--active {
+        font-size: clamp(2.2rem, 7vw, 2.85rem);
+        font-weight: 800;
+      }
+
+      &::after {
+        height: 0;
+      }
+    }
+
+    @media (min-width: 768px) {
+      font-weight: 400;
+      font-size: var(--section-menu-link-size-desktop);
+      padding-bottom: calc(var(--section-menu-active-bar-height) + 4px);
+    }
+  }
+
+  &__backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 998;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    cursor: pointer;
+    background: rgba(0, 0, 0, 0.38);
+    appearance: none;
+    -webkit-tap-highlight-color: transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+
+    &--visible {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+}
+
+.section-menu__backdrop {
+  /* Sibling outside `.section-menu` needs its own root rule. */
+  position: fixed;
+  inset: 0;
+  z-index: 998;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.38);
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+
+  &--visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* Mobile sheet: keep logo + toggle clickable above the slide-in panel. */
+@media (max-width: 767px) {
+  .section-menu--mobile-open {
+    background: transparent;
+
+    .section-menu__logo,
+    .section-menu__controls {
+      z-index: 1100;
+    }
+  }
+}
